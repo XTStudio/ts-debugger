@@ -61,7 +61,7 @@ export class SourceFileVisitor {
                         statements.push(it)
                     }
                 })
-                newStatements.push(ts.createFunctionDeclaration(undefined, undefined, undefined, "__global__", undefined, ts.createNodeArray(), undefined, ts.createBlock(ts.createNodeArray(statements), true)))
+                newStatements.push(ts.createFunctionDeclaration(undefined, undefined, undefined, "__global__", undefined, ts.createNodeArray(), undefined, ts.createBlock(ts.createNodeArray(statements))))
                 newStatements.push(ts.createCall(ts.createIdentifier("__global__"), undefined, undefined))
             }
             {

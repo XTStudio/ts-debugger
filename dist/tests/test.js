@@ -10,10 +10,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ts = __importStar(require("typescript"));
 const debugger_1 = require("../debugger/debugger");
 const sampleFile = 'examples/index.ts';
-debugger_1.Debugger.shared.setBreakpoint(sampleFile, 16);
-debugger_1.Debugger.shared.setBreakpoint(sampleFile, 4);
-debugger_1.Debugger.shared.setBreakpoint(sampleFile, 5);
-debugger_1.Debugger.shared.setBreakpoint(sampleFile, 11);
+debugger_1.Debugger.shared.setBreakpoint(sampleFile, 19);
+debugger_1.Debugger.shared.setBreakpoint(sampleFile, 6);
+debugger_1.Debugger.shared.setBreakpoint(sampleFile, 8);
 debugger_1.Debugger.shared.on("breakpoint", (file, line) => {
     console.log(`> break on ${file}:${line}`);
     setTimeout(() => {

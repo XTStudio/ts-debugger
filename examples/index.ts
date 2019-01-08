@@ -2,7 +2,10 @@ class Foo {
 
     t() {
         this.f()
-        console.log("Hello, World!")
+        let a = (function () {
+            return "1234567890"
+        })()
+        console.log("Hello, World!", a)
     }
 
     f() {

@@ -8,11 +8,19 @@ import { ExpressionVisitor } from "./visitor/expressionVisitor";
 export const createTransformer = function () {
     function visitor(ctx: ts.TransformationContext, sourceFile: ts.SourceFile) {
         const visitor: ts.Visitor = (node: ts.Node): ts.VisitResult<any> => {
-            const newNode = SourceFileVisitor.visit(ctx, sourceFile, node, visitor)
-                || NodeVisitor.visit(ctx, sourceFile, node)
-                || BlockVisitor.visit(ctx, sourceFile, node)
-                || ExpressionVisitor.visit(ctx, sourceFile, node)
-            return newNode || ts.visitEachChild(node, visitor, ctx)
+            let newNode = SourceFileVisitor.visit(ctx, sourceFile, node, visitor) || node
+            newNode = NodeVisitor.visit(ctx, sourceFile, newNode) || newNode
+            newNode = BlockVisitor.visit(ctx, sourceFile, newNode) || newNode
+            newNode = ExpressionVisitor.visit(ctx, sourceFile, newNode) || newNode
+            if (newNode !== node) {
+                newNode.forEachChild(it => {
+                    ts.visitEachChild(it, visitor, ctx)
+                })
+                return newNode
+            }
+            else {
+                return ts.visitEachChild(newNode, visitor, ctx)
+            }
         }
         return visitor
     }

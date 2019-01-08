@@ -16,11 +16,19 @@ const expressionVisitor_1 = require("./visitor/expressionVisitor");
 exports.createTransformer = function () {
     function visitor(ctx, sourceFile) {
         const visitor = (node) => {
-            const newNode = sourceFileVisitor_1.SourceFileVisitor.visit(ctx, sourceFile, node, visitor)
-                || nodeVisitor_1.NodeVisitor.visit(ctx, sourceFile, node)
-                || blockVisitor_1.BlockVisitor.visit(ctx, sourceFile, node)
-                || expressionVisitor_1.ExpressionVisitor.visit(ctx, sourceFile, node);
-            return newNode || ts.visitEachChild(node, visitor, ctx);
+            let newNode = sourceFileVisitor_1.SourceFileVisitor.visit(ctx, sourceFile, node, visitor) || node;
+            newNode = nodeVisitor_1.NodeVisitor.visit(ctx, sourceFile, newNode) || newNode;
+            newNode = blockVisitor_1.BlockVisitor.visit(ctx, sourceFile, newNode) || newNode;
+            newNode = expressionVisitor_1.ExpressionVisitor.visit(ctx, sourceFile, newNode) || newNode;
+            if (newNode !== node) {
+                newNode.forEachChild(it => {
+                    ts.visitEachChild(it, visitor, ctx);
+                });
+                return newNode;
+            }
+            else {
+                return ts.visitEachChild(newNode, visitor, ctx);
+            }
         };
         return visitor;
     }
