@@ -1,11 +1,15 @@
 class Foo {
 
+    static g = (((a: number) => {
+        return a
+    }))
+
     t() {
         this.f()
         let a = (function () {
-            return "1234567890"
+            console.log('66666'); return "1234567890"
         })()
-        console.log("Hello, World!", a)
+        console.log("Hello, World!", a, Foo.g(9999))
     }
 
     f() {

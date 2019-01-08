@@ -13,7 +13,7 @@ export class BlockVisitor {
                             ts.createCall(
                                 ts.createIdentifier("__ts_debugger.__debugger._step"),
                                 ts.createNodeArray(),
-                                ts.createNodeArray([ts.createLiteral(sourceFile.fileName), ts.createLiteral(ts.getLineAndCharacterOfPosition(sourceFile, it.getStart(sourceFile)).line + 1)])
+                                ts.createNodeArray([ts.createLiteral(sourceFile.fileName), ts.createLiteral(ts.getLineAndCharacterOfPosition(sourceFile, it.getStart(sourceFile)).line + 1), ts.createLiteral(ts.getLineAndCharacterOfPosition(sourceFile, it.getStart(sourceFile)).character + 1)])
                             )
                         )
                     )

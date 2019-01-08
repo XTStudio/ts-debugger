@@ -1,4 +1,5 @@
 import * as ts from "typescript";
+import { ExpressionVisitor } from "./expressionVisitor";
 
 export class NodeVisitor {
 
@@ -60,6 +61,9 @@ export class NodeVisitor {
                         it.body
                     )
                     newMembers.push(newStatement)
+                }
+                else if (ts.isPropertyDeclaration(it)) {
+                    newMembers.push(it)
                 }
                 else {
                     newMembers.push(it)

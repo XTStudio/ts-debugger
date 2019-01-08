@@ -9,12 +9,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const ts = __importStar(require("typescript"));
 const debugger_1 = require("../debugger/debugger");
+const fs_1 = require("fs");
 const sampleFile = 'examples/index.ts';
-debugger_1.Debugger.shared.setBreakpoint(sampleFile, 19);
-debugger_1.Debugger.shared.setBreakpoint(sampleFile, 6);
-debugger_1.Debugger.shared.setBreakpoint(sampleFile, 8);
-debugger_1.Debugger.shared.on("breakpoint", (file, line) => {
-    console.log(`> break on ${file}:${line}`);
+debugger_1.Debugger.shared.setBreakpoint(sampleFile, 12);
+debugger_1.Debugger.shared.setBreakpoint(sampleFile, 4);
+debugger_1.Debugger.shared.on("breakpoint", (file, line, column) => {
+    console.log(`> break on ${file}:${line},${column}`);
     setTimeout(() => {
         debugger_1.Debugger.shared.resume();
     }, 2000);
@@ -27,6 +27,7 @@ program.emit(sourceFile, (fileName, data) => {
     if (process.argv.indexOf("--verbose") >= 0) {
         console.log(data);
     }
+    fs_1.writeFileSync('examples/index.js', data);
     console.log(`-------- ${fileName} ---------`);
     eval(data);
 }, undefined, undefined, {

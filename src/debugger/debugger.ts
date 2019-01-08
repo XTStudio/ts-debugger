@@ -53,14 +53,14 @@ export class Debugger {
 
     }
 
-    private _step(file: string, line: number) {
+    private _step(file: string, line: number, column: number) {
         if (!this._preventBreakpoint && this._breakpoints[file] && this._breakpoints[file][line] === true && this._eventListenners["breakpoint"]) {
             return new Promise((resolver) => {
                 this._preventBreakpoint = true
                 if (this._breakpointResolver) { this._breakpointResolver() }
                 this._preventBreakpoint = false
                 this._breakpointResolver = resolver
-                this._eventListenners["breakpoint"].forEach(it => it(file, line))
+                this._eventListenners["breakpoint"].forEach(it => it(file, line, column))
             })
         }
     }

@@ -11,7 +11,11 @@ export const createTransformer = function () {
             let newNode = SourceFileVisitor.visit(ctx, sourceFile, node, visitor) || node
             newNode = NodeVisitor.visit(ctx, sourceFile, newNode) || newNode
             newNode = BlockVisitor.visit(ctx, sourceFile, newNode) || newNode
-            newNode = ExpressionVisitor.visit(ctx, sourceFile, newNode) || newNode
+            const ret = ExpressionVisitor.visit(ctx, sourceFile, newNode)
+            if (typeof ret === "boolean") {
+                return newNode
+            }
+            newNode = ret || newNode
             if (newNode !== node) {
                 newNode.forEachChild(it => {
                     ts.visitEachChild(it, visitor, ctx)

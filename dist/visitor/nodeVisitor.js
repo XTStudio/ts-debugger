@@ -50,6 +50,9 @@ class NodeVisitor {
                     })(), it.asteriskToken, it.name, it.questionToken, it.typeParameters, it.parameters, it.type, it.body);
                     newMembers.push(newStatement);
                 }
+                else if (ts.isPropertyDeclaration(it)) {
+                    newMembers.push(it);
+                }
                 else {
                     newMembers.push(it);
                 }

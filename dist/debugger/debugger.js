@@ -40,7 +40,7 @@ class Debugger {
     }
     _exit() {
     }
-    _step(file, line) {
+    _step(file, line, column) {
         if (!this._preventBreakpoint && this._breakpoints[file] && this._breakpoints[file][line] === true && this._eventListenners["breakpoint"]) {
             return new Promise((resolver) => {
                 this._preventBreakpoint = true;
@@ -49,7 +49,7 @@ class Debugger {
                 }
                 this._preventBreakpoint = false;
                 this._breakpointResolver = resolver;
-                this._eventListenners["breakpoint"].forEach(it => it(file, line));
+                this._eventListenners["breakpoint"].forEach(it => it(file, line, column));
             });
         }
     }
