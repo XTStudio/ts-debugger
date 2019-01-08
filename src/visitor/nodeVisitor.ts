@@ -27,7 +27,35 @@ export class NodeVisitor {
                     newStatements.push(it)
                 }
             })
-            node.statements = newStatements
+            node.statements = ts.createNodeArray(newStatements)
+        }
+        if (ts.isClassDeclaration(node)) {
+            const members = node.members.slice()
+            let newMembers: any[] = []
+            members.forEach(it => {
+                if (ts.isMethodDeclaration(it)) {
+                    const newStatement = ts.createMethod(
+                        it.decorators,
+                        (() => {
+                            let modifiers: any[] = it.modifiers ? it.modifiers.slice() : []
+                            modifiers.push(ts.createModifier(ts.SyntaxKind.AsyncKeyword))
+                            return modifiers
+                        })(),
+                        it.asteriskToken,
+                        it.name,
+                        it.questionToken,
+                        it.typeParameters,
+                        it.parameters,
+                        it.type,
+                        it.body
+                    )
+                    newMembers.push(newStatement)
+                }
+                else {
+                    newMembers.push(it)
+                }
+            })
+            node.members = ts.createNodeArray(newMembers)
         }
         return undefined
     }

@@ -2,10 +2,10 @@ import * as ts from "typescript";
 import { Debugger } from "../debugger/debugger";
 
 const sampleFile = 'examples/index.ts'
-Debugger.shared.setBreakpoint(sampleFile, 2)
 Debugger.shared.setBreakpoint(sampleFile, 16)
-Debugger.shared.setBreakpoint(sampleFile, 17)
-// Debugger.shared.setBreakpoint(sampleFile, 12)
+Debugger.shared.setBreakpoint(sampleFile, 4)
+Debugger.shared.setBreakpoint(sampleFile, 5)
+Debugger.shared.setBreakpoint(sampleFile, 11)
 Debugger.shared.on("breakpoint", (file, line) => {
     console.log(`> break on ${file}:${line}`)
     setTimeout(() => {

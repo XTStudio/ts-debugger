@@ -1,17 +1,16 @@
-function t() {
-    console.log("Hello, World")
-    return true
-}
+class Foo {
 
-function a(a: number, b: string): number {
-    let x = 1
-    let y = 2
-    if (t()) {
-        console.log("123123")
+    t() {
+        this.f()
+        console.log("Hello, World!")
     }
-    console.log(x + y)
-    return x + y
+
+    f() {
+        let x = 1
+        let y = 2
+        console.log(x + y)
+    }
+
 }
 
-var e = t()
-console.log(a(20, "10"))
+var e = new Foo().t()
