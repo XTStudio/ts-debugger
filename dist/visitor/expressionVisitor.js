@@ -15,6 +15,7 @@ class ExpressionVisitor {
                 return false;
             }
             else if (node.initializer && ts.isParenthesizedExpression(node.initializer)) {
+                node.initializer.expression;
                 return false;
             }
             else if (node.initializer && ts.isArrowFunction(node.initializer)) {

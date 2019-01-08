@@ -34,100 +34,64 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var __ts_debugger = require("../index");
-var e
 var Foo = /** @class */ (function () {
     function Foo() {
+        var _this = this;
+        this.a = function () { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, __ts_debugger.__debugger._step("examples/index.ts", 4, 9)];
+                    case 1: return [4 /*yield*/, _a.sent()];
+                    case 2:
+                        _a.sent()
+                        return [2 /*return*/, 123];
+                }
+            });
+        }); };
     }
-    Foo.prototype.t = function () {
+    Foo.prototype.b = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var a;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0: return [4 /*yield*/, __ts_debugger.__debugger._step("examples/index.ts", 8, 9)];
-                    case 1: return [4 /*yield*/, _a.sent()];
+                    case 1: return [4 /*yield*/, _d.sent()];
                     case 2:
-                        _a.sent()
-                        return [4 /*yield*/, this.f()];
-                    case 3:
-                        _a.sent();
-                        return [4 /*yield*/, __ts_debugger.__debugger._step("examples/index.ts", 9, 9)];
-                    case 4: return [4 /*yield*/, _a.sent()];
-                    case 5:
-                        _a.sent()
-                        return [4 /*yield*/, function () {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0: return [4 /*yield*/, __ts_debugger.__debugger._step("examples/index.ts", 10, 13)];
-                                            case 1:
-                                                _a.sent()
-                                                console.log('66666');
-                                                return [4 /*yield*/, __ts_debugger.__debugger._step("examples/index.ts", 10, 35)];
-                                            case 2:
-                                                _a.sent()
-                                                return [2 /*return*/, "1234567890"];
-                                        }
-                                    });
-                                });
-                            }()];
-                    case 6:
-                        a = _a.sent();
-                        return [4 /*yield*/, __ts_debugger.__debugger._step("examples/index.ts", 12, 9)];
-                    case 7: return [4 /*yield*/, _a.sent()];
-                    case 8:
-                        _a.sent()
-                        return [4 /*yield*/, console.log("Hello, World!", a, Foo.g)];
-                    case 9:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    Foo.prototype.f = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var x, y;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, __ts_debugger.__debugger._step("examples/index.ts", 16, 9)];
-                    case 1: return [4 /*yield*/, _a.sent()];
-                    case 2:
-                        _a.sent()
-                        x = 1;
-                        return [4 /*yield*/, __ts_debugger.__debugger._step("examples/index.ts", 17, 9)];
-                    case 3: return [4 /*yield*/, _a.sent()];
+                        _d.sent()
+                        _b = (_a = console).log;
+                        _c = ["123123123"];
+                        return [4 /*yield*/, this.a()];
+                    case 3: return [4 /*yield*/, _b.apply(_a, _c.concat([_d.sent()]))];
                     case 4:
-                        _a.sent()
-                        y = 2;
-                        return [4 /*yield*/, __ts_debugger.__debugger._step("examples/index.ts", 18, 9)];
-                    case 5: return [4 /*yield*/, _a.sent()];
+                        _d.sent();
+                        return [4 /*yield*/, __ts_debugger.__debugger._step("examples/index.ts", 9, 9)];
+                    case 5: return [4 /*yield*/, _d.sent()];
                     case 6:
-                        _a.sent()
-                        return [4 /*yield*/, console.log(x + y)];
-                    case 7:
-                        _a.sent();
-                        return [2 /*return*/];
+                        _d.sent()
+                        return [2 /*return*/, "asdfghjkl"];
                 }
             });
         });
     };
-    Foo.g = (function (a) {
-        return a;
-    })(9999);
     return Foo;
 }());
 function __global__() {
-    return __awaiter(this, void 0, void 0, function () { var e; return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, __ts_debugger.__debugger._step("examples/index.ts", 23, 1)];
-            case 1: return [4 /*yield*/, _a.sent()];
-            case 2:
-                _a.sent()
-                return [4 /*yield*/, new Foo().t()];
-            case 3:
-                e = _a.sent();
-                return [2 /*return*/];
-        }
-    }); });
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, _b;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0: return [4 /*yield*/, __ts_debugger.__debugger._step("examples/index.ts", 14, 1)];
+                case 1: return [4 /*yield*/, _c.sent()];
+                case 2:
+                    _c.sent()
+                    _b = (_a = console).log;
+                    return [4 /*yield*/, new Foo().b()];
+                case 3: return [4 /*yield*/, _b.apply(_a, [_c.sent()])];
+                case 4:
+                    _c.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
 }
 __global__()

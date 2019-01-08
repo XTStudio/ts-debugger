@@ -1,30 +1,32 @@
 import * as ts from "typescript";
-import { NodeVisitor } from "./visitor/nodeVisitor";
-import { BlockVisitor } from "./visitor/blockVisitor";
 import { Debugger } from "./debugger/debugger";
 import { SourceFileVisitor } from "./visitor/sourceFileVisitor";
-import { ExpressionVisitor } from "./visitor/expressionVisitor";
+import { BaseVisitor } from "./visitor/baseVisitor";
+import { DebuggerStepVisitor } from "./visitor/debuggerStepVisitor";
+import { CallExpressionVisitor } from "./visitor/callExpressionVisitor";
+import { AsyncFunctionDeclarationVisitor, AsyncFunctionExpressionVisitor, AsyncArrowFunctionVisitor, AsyncClassMethodVisitor } from "./visitor/asyncTokenVisitor";
+
+const visitors: BaseVisitor<ts.Node>[] = [
+    new SourceFileVisitor,
+    new AsyncFunctionDeclarationVisitor,
+    new AsyncFunctionExpressionVisitor,
+    new AsyncArrowFunctionVisitor,
+    new AsyncClassMethodVisitor,
+    new DebuggerStepVisitor,
+    new CallExpressionVisitor,
+]
 
 export const createTransformer = function () {
     function visitor(ctx: ts.TransformationContext, sourceFile: ts.SourceFile) {
         const visitor: ts.Visitor = (node: ts.Node): ts.VisitResult<any> => {
-            let newNode = SourceFileVisitor.visit(ctx, sourceFile, node, visitor) || node
-            newNode = NodeVisitor.visit(ctx, sourceFile, newNode) || newNode
-            newNode = BlockVisitor.visit(ctx, sourceFile, newNode) || newNode
-            const ret = ExpressionVisitor.visit(ctx, sourceFile, newNode)
-            if (typeof ret === "boolean") {
-                return newNode
+            let result: { node: ts.Node, forceReturn?: boolean } = { node }
+            for (let index = 0; index < visitors.length; index++) {
+                const item = visitors[index];
+                if (item.test(result.node)) {
+                    result = item.visit(ctx, sourceFile, result.node)
+                }
             }
-            newNode = ret || newNode
-            if (newNode !== node) {
-                newNode.forEachChild(it => {
-                    ts.visitEachChild(it, visitor, ctx)
-                })
-                return newNode
-            }
-            else {
-                return ts.visitEachChild(newNode, visitor, ctx)
-            }
+            return ts.visitEachChild(result.node, visitor, ctx)
         }
         return visitor
     }

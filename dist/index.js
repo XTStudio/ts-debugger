@@ -8,31 +8,31 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ts = __importStar(require("typescript"));
-const nodeVisitor_1 = require("./visitor/nodeVisitor");
-const blockVisitor_1 = require("./visitor/blockVisitor");
 const debugger_1 = require("./debugger/debugger");
 const sourceFileVisitor_1 = require("./visitor/sourceFileVisitor");
-const expressionVisitor_1 = require("./visitor/expressionVisitor");
+const debuggerStepVisitor_1 = require("./visitor/debuggerStepVisitor");
+const callExpressionVisitor_1 = require("./visitor/callExpressionVisitor");
+const asyncTokenVisitor_1 = require("./visitor/asyncTokenVisitor");
+const visitors = [
+    new sourceFileVisitor_1.SourceFileVisitor,
+    new asyncTokenVisitor_1.AsyncFunctionDeclarationVisitor,
+    new asyncTokenVisitor_1.AsyncFunctionExpressionVisitor,
+    new asyncTokenVisitor_1.AsyncArrowFunctionVisitor,
+    new asyncTokenVisitor_1.AsyncClassMethodVisitor,
+    new debuggerStepVisitor_1.DebuggerStepVisitor,
+    new callExpressionVisitor_1.CallExpressionVisitor,
+];
 exports.createTransformer = function () {
     function visitor(ctx, sourceFile) {
         const visitor = (node) => {
-            let newNode = sourceFileVisitor_1.SourceFileVisitor.visit(ctx, sourceFile, node, visitor) || node;
-            newNode = nodeVisitor_1.NodeVisitor.visit(ctx, sourceFile, newNode) || newNode;
-            newNode = blockVisitor_1.BlockVisitor.visit(ctx, sourceFile, newNode) || newNode;
-            const ret = expressionVisitor_1.ExpressionVisitor.visit(ctx, sourceFile, newNode);
-            if (typeof ret === "boolean") {
-                return newNode;
+            let result = { node };
+            for (let index = 0; index < visitors.length; index++) {
+                const item = visitors[index];
+                if (item.test(result.node)) {
+                    result = item.visit(ctx, sourceFile, result.node);
+                }
             }
-            newNode = ret || newNode;
-            if (newNode !== node) {
-                newNode.forEachChild(it => {
-                    ts.visitEachChild(it, visitor, ctx);
-                });
-                return newNode;
-            }
-            else {
-                return ts.visitEachChild(newNode, visitor, ctx);
-            }
+            return ts.visitEachChild(result.node, visitor, ctx);
         };
         return visitor;
     }
