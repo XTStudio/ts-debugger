@@ -18,11 +18,11 @@ class AsyncFunctionExpressionVisitor {
             return { node };
         }
         return {
-            node: ts.createFunctionExpression((() => {
+            node: helper_1.applyPosition(node, ts.createFunctionExpression((() => {
                 let modifiers = node.modifiers ? node.modifiers.slice() : [];
                 modifiers.push(ts.createModifier(ts.SyntaxKind.AsyncKeyword));
                 return modifiers;
-            })(), node.asteriskToken, node.name, node.typeParameters, node.parameters, node.type, node.body)
+            })(), node.asteriskToken, node.name, node.typeParameters, node.parameters, node.type, node.body))
         };
     }
 }
@@ -36,11 +36,11 @@ class AsyncFunctionDeclarationVisitor {
             return { node };
         }
         return {
-            node: ts.createFunctionDeclaration(node.decorators, (() => {
+            node: helper_1.applyPosition(node, ts.createFunctionDeclaration(node.decorators, (() => {
                 let modifiers = node.modifiers ? node.modifiers.slice() : [];
                 modifiers.push(ts.createModifier(ts.SyntaxKind.AsyncKeyword));
                 return modifiers;
-            })(), node.asteriskToken, node.name, node.typeParameters, node.parameters, node.type, node.body)
+            })(), node.asteriskToken, node.name, node.typeParameters, node.parameters, node.type, node.body))
         };
     }
 }
@@ -54,11 +54,11 @@ class AsyncArrowFunctionVisitor {
             return { node };
         }
         return {
-            node: ts.createArrowFunction((() => {
+            node: helper_1.applyPosition(node, ts.createArrowFunction((() => {
                 let modifiers = node.modifiers ? node.modifiers.slice() : [];
                 modifiers.push(ts.createModifier(ts.SyntaxKind.AsyncKeyword));
                 return modifiers;
-            })(), node.typeParameters, node.parameters, node.type, node.equalsGreaterThanToken, node.body)
+            })(), node.typeParameters, node.parameters, node.type, node.equalsGreaterThanToken, node.body))
         };
     }
 }
@@ -69,11 +69,11 @@ class AsyncClassMethodVisitor {
     }
     visit(ctx, sourceFile, node) {
         return {
-            node: ts.createMethod(node.decorators, (() => {
+            node: helper_1.applyPosition(node, ts.createMethod(node.decorators, (() => {
                 let modifiers = node.modifiers ? node.modifiers.slice() : [];
                 modifiers.push(ts.createModifier(ts.SyntaxKind.AsyncKeyword));
                 return modifiers;
-            })(), node.asteriskToken, node.name, node.questionToken, node.typeParameters, node.parameters, node.type, node.body)
+            })(), node.asteriskToken, node.name, node.questionToken, node.typeParameters, node.parameters, node.type, node.body))
         };
     }
 }

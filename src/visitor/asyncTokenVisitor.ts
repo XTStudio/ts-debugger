@@ -1,6 +1,6 @@
 import { BaseVisitor } from "./baseVisitor";
 import * as ts from "typescript";
-import { isPropertyInvokingDeclaration } from "./helper";
+import { isPropertyInvokingDeclaration, applyPosition } from "./helper";
 
 export class AsyncFunctionExpressionVisitor implements BaseVisitor<ts.FunctionExpression> {
 
@@ -9,7 +9,7 @@ export class AsyncFunctionExpressionVisitor implements BaseVisitor<ts.FunctionEx
     visit(ctx: ts.TransformationContext, sourceFile: ts.SourceFile, node: ts.FunctionExpression): { node: ts.Node; forceReturn?: boolean | undefined; } {
         if (isPropertyInvokingDeclaration(node)) { return { node } }
         return {
-            node: ts.createFunctionExpression(
+            node: applyPosition(node, ts.createFunctionExpression(
                 (() => {
                     let modifiers: any[] = node.modifiers ? node.modifiers.slice() : []
                     modifiers.push(ts.createModifier(ts.SyntaxKind.AsyncKeyword))
@@ -21,7 +21,7 @@ export class AsyncFunctionExpressionVisitor implements BaseVisitor<ts.FunctionEx
                 node.parameters,
                 node.type,
                 node.body
-            )
+            ))
         }
     }
 
@@ -34,7 +34,7 @@ export class AsyncFunctionDeclarationVisitor implements BaseVisitor<ts.FunctionD
     visit(ctx: ts.TransformationContext, sourceFile: ts.SourceFile, node: ts.FunctionDeclaration): { node: ts.Node; forceReturn?: boolean | undefined; } {
         if (isPropertyInvokingDeclaration(node)) { return { node } }
         return {
-            node: ts.createFunctionDeclaration(
+            node: applyPosition(node, ts.createFunctionDeclaration(
                 node.decorators,
                 (() => {
                     let modifiers: any[] = node.modifiers ? node.modifiers.slice() : []
@@ -47,7 +47,7 @@ export class AsyncFunctionDeclarationVisitor implements BaseVisitor<ts.FunctionD
                 node.parameters,
                 node.type,
                 node.body
-            )
+            ))
         }
     }
 
@@ -60,7 +60,7 @@ export class AsyncArrowFunctionVisitor implements BaseVisitor<ts.ArrowFunction> 
     visit(ctx: ts.TransformationContext, sourceFile: ts.SourceFile, node: ts.ArrowFunction): { node: ts.Node; forceReturn?: boolean | undefined; } {
         if (isPropertyInvokingDeclaration(node)) { return { node } }
         return {
-            node: ts.createArrowFunction(
+            node: applyPosition(node, ts.createArrowFunction(
                 (() => {
                     let modifiers: any[] = node.modifiers ? node.modifiers.slice() : []
                     modifiers.push(ts.createModifier(ts.SyntaxKind.AsyncKeyword))
@@ -71,7 +71,7 @@ export class AsyncArrowFunctionVisitor implements BaseVisitor<ts.ArrowFunction> 
                 node.type,
                 node.equalsGreaterThanToken,
                 node.body
-            )
+            ))
         }
     }
 
@@ -83,7 +83,7 @@ export class AsyncClassMethodVisitor implements BaseVisitor<ts.MethodDeclaration
 
     visit(ctx: ts.TransformationContext, sourceFile: ts.SourceFile, node: ts.MethodDeclaration): { node: ts.Node; forceReturn?: boolean | undefined; } {
         return {
-            node: ts.createMethod(
+            node: applyPosition(node, ts.createMethod(
                 node.decorators,
                 (() => {
                     let modifiers: any[] = node.modifiers ? node.modifiers.slice() : []
@@ -97,7 +97,7 @@ export class AsyncClassMethodVisitor implements BaseVisitor<ts.MethodDeclaration
                 node.parameters,
                 node.type,
                 node.body
-            )
+            ))
         }
     }
 

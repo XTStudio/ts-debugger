@@ -5,8 +5,10 @@ import { BaseVisitor } from "./visitor/baseVisitor";
 import { DebuggerStepVisitor } from "./visitor/debuggerStepVisitor";
 import { CallExpressionVisitor } from "./visitor/callExpressionVisitor";
 import { AsyncFunctionDeclarationVisitor, AsyncFunctionExpressionVisitor, AsyncArrowFunctionVisitor, AsyncClassMethodVisitor } from "./visitor/asyncTokenVisitor";
+import { StackVisitor } from "./visitor/stackVisitor";
 
 const visitors: BaseVisitor<ts.Node>[] = [
+    new StackVisitor,
     new SourceFileVisitor,
     new AsyncFunctionDeclarationVisitor,
     new AsyncFunctionExpressionVisitor,

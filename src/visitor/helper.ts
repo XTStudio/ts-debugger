@@ -26,3 +26,9 @@ export const isConstructorDeclaration = (node: ts.Node): boolean => {
     }
     return false
 }
+
+export const applyPosition = (s1: ts.Node, s2: ts.Node): ts.Node => {
+    s2.pos = s1.pos
+    s2.end = s1.end
+    return s2
+}

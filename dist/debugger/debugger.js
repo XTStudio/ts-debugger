@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class Debugger {
     constructor() {
+        this.stack = [];
         // internal methods
         this._eventListenners = {};
         this._breakpoints = {};
@@ -36,9 +37,14 @@ class Debugger {
             this._breakpoints[file][line] = false;
         }
     }
-    _enter() {
+    _enter(file, line, name, variables) {
+        this.stack.push({ file, line, name, variables });
     }
-    _exit() {
+    _exit(level, value) {
+        for (let index = 0; index < level; index++) {
+            this.stack.pop();
+        }
+        return value;
     }
     _step(file, line, column) {
         if (!this._preventBreakpoint && this._breakpoints[file] && this._breakpoints[file][line] === true && this._eventListenners["breakpoint"]) {

@@ -33,3 +33,8 @@ exports.isConstructorDeclaration = (node) => {
     }
     return false;
 };
+exports.applyPosition = (s1, s2) => {
+    s2.pos = s1.pos;
+    s2.end = s1.end;
+    return s2;
+};

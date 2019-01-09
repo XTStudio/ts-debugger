@@ -34,7 +34,7 @@ class CallExpressionVisitor {
             return expression;
         }
         awaited.set(expression, true);
-        return ts.createAwait(expression);
+        return helper_1.applyPosition(expression, ts.createAwait(expression));
     }
 }
 exports.CallExpressionVisitor = CallExpressionVisitor;

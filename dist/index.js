@@ -13,7 +13,9 @@ const sourceFileVisitor_1 = require("./visitor/sourceFileVisitor");
 const debuggerStepVisitor_1 = require("./visitor/debuggerStepVisitor");
 const callExpressionVisitor_1 = require("./visitor/callExpressionVisitor");
 const asyncTokenVisitor_1 = require("./visitor/asyncTokenVisitor");
+const stackVisitor_1 = require("./visitor/stackVisitor");
 const visitors = [
+    new stackVisitor_1.StackVisitor,
     new sourceFileVisitor_1.SourceFileVisitor,
     new asyncTokenVisitor_1.AsyncFunctionDeclarationVisitor,
     new asyncTokenVisitor_1.AsyncFunctionExpressionVisitor,

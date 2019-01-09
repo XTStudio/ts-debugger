@@ -1,3 +1,10 @@
+export interface Frame {
+    file: string
+    line: number
+    name: string
+    variables: { [key: string]: any }
+}
+
 export class Debugger {
 
     static shared: Debugger = (() => {
@@ -6,6 +13,8 @@ export class Debugger {
         globalObject["__ts_debugger_instance"] = instance
         return instance
     })()
+
+    stack: Frame[] = []
 
     on(event: "breakpoint", listenner: (...args: any[]) => void) {
         if (this._eventListenners[event] === undefined) {
@@ -45,12 +54,15 @@ export class Debugger {
     private _breakpointResolver: (() => void) | undefined = undefined
     private _preventBreakpoint = false
 
-    private _enter() {
-
+    private _enter(file: string, line: number, name: string, variables: { [key: string]: any }) {
+        this.stack.push({ file, line, name, variables })
     }
 
-    private _exit() {
-
+    private _exit(level: number, value: any): any {
+        for (let index = 0; index < level; index++) {
+            this.stack.pop()
+        }
+        return value
     }
 
     private _step(file: string, line: number, column: number) {

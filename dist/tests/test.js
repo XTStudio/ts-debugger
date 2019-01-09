@@ -11,9 +11,11 @@ const ts = __importStar(require("typescript"));
 const debugger_1 = require("../debugger/debugger");
 const fs_1 = require("fs");
 const sampleFile = 'examples/index.ts';
-debugger_1.Debugger.shared.setBreakpoint(sampleFile, 11);
+debugger_1.Debugger.shared.setBreakpoint(sampleFile, 6);
+debugger_1.Debugger.shared.setBreakpoint(sampleFile, 12);
 debugger_1.Debugger.shared.on("breakpoint", (file, line, column) => {
     console.log(`> break on ${file}:${line},${column}`);
+    console.log('> stack', debugger_1.Debugger.shared.stack);
     setTimeout(() => {
         debugger_1.Debugger.shared.resume();
     }, 2000);

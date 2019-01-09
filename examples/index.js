@@ -1,78 +1,3 @@
-
-    class Debugger {
-        constructor() {
-            // internal methods
-            this._eventListenners = {};
-            this._breakpoints = {};
-            this._breakpointResolver = undefined;
-            this._preventBreakpoint = false;
-        }
-        on(event, listenner) {
-            if (this._eventListenners[event] === undefined) {
-                this._eventListenners[event] = [];
-            }
-            this._eventListenners[event].push(listenner);
-        }
-        resume() {
-            if (this._breakpointResolver) {
-                this._breakpointResolver();
-            }
-            this._breakpointResolver = undefined;
-        }
-        setBreakpoint(file, line) {
-            if (this._breakpoints[file] === undefined) {
-                this._breakpoints[file] = {};
-            }
-            this._breakpoints[file][line] = true;
-        }
-        activeBreakpoint(file, line) {
-            if (this._breakpoints[file]) {
-                this._breakpoints[file][line] = true;
-            }
-        }
-        deactiveBreakpoint(file, line) {
-            if (this._breakpoints[file]) {
-                this._breakpoints[file][line] = false;
-            }
-        }
-        _enter() {
-        }
-        _exit() {
-        }
-        _step(file, line, column) {
-            if (!this._preventBreakpoint && this._breakpoints[file] && this._breakpoints[file][line] === true && this._eventListenners["breakpoint"]) {
-                return new Promise((resolver) => {
-                    this._preventBreakpoint = true;
-                    if (this._breakpointResolver) {
-                        this._breakpointResolver();
-                    }
-                    this._preventBreakpoint = false;
-                    this._breakpointResolver = resolver;
-                    this._eventListenners["breakpoint"].forEach(it => it(file, line, column));
-                });
-            }
-        }
-    }
-    Debugger.shared = (() => {
-        let globalObject = global || window;
-        let instance = globalObject["__ts_debugger_instance"] || new Debugger;
-        globalObject["__ts_debugger_instance"] = instance;
-        return instance;
-    })();
-
-    var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -108,150 +33,82 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __ts_debugger = {Debugger: Debugger.shared}
+var __ts_debugger = require("../index");
 /// <reference path="../node_modules/xt-studio/types/index.d.ts" />
-var MainViewController = /** @class */ (function (_super) {
-    __extends(MainViewController, _super);
-    function MainViewController() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.redView = new UIView;
-        _this.yellowView = new UIView;
-        return _this;
-    }
-    MainViewController.prototype.viewDidLoad = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 9, 7)];
-                    case 1: return [4 /*yield*/, _a.sent()];
-                    case 2:
-                        _a.sent()
-                        return [4 /*yield*/, _super.prototype.viewDidLoad.call(this)];
-                    case 3:
-                        _a.sent();
-                        return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 10, 7)];
-                    case 4: return [4 /*yield*/, _a.sent()];
-                    case 5:
-                        _a.sent()
-                        this.redView.backgroundColor = UIColor.red;
-                        return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 11, 7)];
-                    case 6: return [4 /*yield*/, _a.sent()];
-                    case 7:
-                        _a.sent()
-                        this.yellowView.backgroundColor = UIColor.yellow;
-                        return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 12, 7)];
-                    case 8: return [4 /*yield*/, _a.sent()];
-                    case 9:
-                        _a.sent()
-                        return [4 /*yield*/, this.redView.addSubview(this.yellowView)];
-                    case 10:
-                        _a.sent();
-                        return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 13, 7)];
-                    case 11: return [4 /*yield*/, _a.sent()];
-                    case 12:
-                        _a.sent()
-                        return [4 /*yield*/, this.view.addSubview(this.redView)];
-                    case 13:
-                        _a.sent();
-                        return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 14, 7)];
-                    case 14: return [4 /*yield*/, _a.sent()];
-                    case 15:
-                        _a.sent()
-                        return [4 /*yield*/, this.sendRequest()];
-                    case 16:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
+function a() {
+    return __awaiter(this, void 0, void 0, function () {
+        var x;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, __ts_debugger.Debugger._enter("examples/index.ts", 4, "block", {})];
+                case 1:
+                    _a.sent();
+                    return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 4, 5)];
+                case 2: return [4 /*yield*/, _a.sent()];
+                case 3:
+                    _a.sent()
+                    x = 1;
+                    return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 5, 5)];
+                case 4: return [4 /*yield*/, _a.sent()];
+                case 5:
+                    _a.sent()
+                    _a.label = 6;
+                case 6:
+                    if (!true) return [3 /*break*/, 12];
+                    return [4 /*yield*/, __ts_debugger.Debugger._enter("examples/index.ts", 6, "block", {})];
+                case 7:
+                    _a.sent();
+                    return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 6, 9)];
+                case 8: return [4 /*yield*/, _a.sent()];
+                case 9:
+                    _a.sent()
+                    return [4 /*yield*/, __ts_debugger.Debugger._exit(2, 999)];
+                case 10: return [2 /*return*/, _a.sent()];
+                case 11:
+                    _a.sent()
+                    return [3 /*break*/, 6];
+                case 12: return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 8, 5)];
+                case 13: return [4 /*yield*/, _a.sent()];
+                case 14:
+                    _a.sent()
+                    return [4 /*yield*/, console.log(x, "1231231")];
+                case 15:
+                    _a.sent();
+                    return [4 /*yield*/, __ts_debugger.Debugger._exit()];
+                case 16:
+                    _a.sent()
+                    return [2 /*return*/];
+            }
         });
-    };
-    MainViewController.prototype.viewWillLayoutSubviews = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 18, 7)];
-                    case 1: return [4 /*yield*/, _a.sent()];
-                    case 2:
-                        _a.sent()
-                        return [4 /*yield*/, _super.prototype.viewWillLayoutSubviews.call(this)];
-                    case 3:
-                        _a.sent();
-                        return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 19, 7)];
-                    case 4: return [4 /*yield*/, _a.sent()];
-                    case 5:
-                        _a.sent()
-                        this.redView.frame = { x: 22, y: 22, width: 88, height: 88 };
-                        return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 20, 7)];
-                    case 6: return [4 /*yield*/, _a.sent()];
-                    case 7:
-                        _a.sent()
-                        this.yellowView.frame = { x: 22, y: 22, width: 22, height: 22 };
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MainViewController.prototype.sendRequest = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var data, _a, _b, e_1;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
-                    case 0: return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 24, 9)];
-                    case 1: return [4 /*yield*/, _c.sent()];
-                    case 2:
-                        _c.sent()
-                        _c.label = 3;
-                    case 3:
-                        _c.trys.push([3, 12, , 16]);
-                        return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 25, 13)];
-                    case 4: return [4 /*yield*/, _c.sent()];
-                    case 5:
-                        _c.sent()
-                        return [4 /*yield*/, URLSession.shared.fetch("https://api.github.com")];
-                    case 6: return [4 /*yield*/, _c.sent()];
-                    case 7:
-                        data = _c.sent();
-                        return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 26, 13)];
-                    case 8: return [4 /*yield*/, _c.sent()];
-                    case 9:
-                        _c.sent()
-                        _b = (_a = console).log;
-                        return [4 /*yield*/, data.utf8String()];
-                    case 10: return [4 /*yield*/, _b.apply(_a, [_c.sent()])];
-                    case 11:
-                        _c.sent();
-                        return [3 /*break*/, 16];
-                    case 12:
-                        e_1 = _c.sent();
-                        return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 28, 13)];
-                    case 13: return [4 /*yield*/, _c.sent()];
-                    case 14:
-                        _c.sent()
-                        return [4 /*yield*/, console.log(e_1)];
-                    case 15:
-                        _c.sent();
-                        return [3 /*break*/, 16];
-                    case 16: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    return MainViewController;
-}(UIViewController));
+    });
+}
 function __global__() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 34, 3)];
-                case 1: return [4 /*yield*/, _a.sent()];
-                case 2:
+                case 0: return [4 /*yield*/, __ts_debugger.Debugger._enter("examples/index.ts", 11, "block", {})];
+                case 1:
+                    _a.sent();
+                    return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 11, 1)];
+                case 2: return [4 /*yield*/, _a.sent()];
+                case 3:
                     _a.sent()
-                    global.main = new MainViewController;
+                    return [4 /*yield*/, a()];
+                case 4:
+                    _a.sent();
+                    return [4 /*yield*/, __ts_debugger.Debugger._step("examples/index.ts", 12, 1)];
+                case 5: return [4 /*yield*/, _a.sent()];
+                case 6:
+                    _a.sent()
+                    return [4 /*yield*/, console.log(888)];
+                case 7:
+                    _a.sent();
+                    return [4 /*yield*/, __ts_debugger.Debugger._exit()];
+                case 8:
+                    _a.sent()
                     return [2 /*return*/];
             }
         });
     });
 }
 __global__()
-
-    
