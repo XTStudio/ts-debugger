@@ -3,9 +3,7 @@ import { Debugger } from "../debugger/debugger";
 import { writeFileSync } from "fs";
 
 const sampleFile = 'examples/index.ts'
-Debugger.shared.setBreakpoint(sampleFile, 4)
-Debugger.shared.setBreakpoint(sampleFile, 8)
-Debugger.shared.setBreakpoint(sampleFile, 14)
+Debugger.shared.setBreakpoint(sampleFile, 11)
 Debugger.shared.on("breakpoint", (file, line, column) => {
     console.log(`> break on ${file}:${line},${column}`)
     setTimeout(() => {

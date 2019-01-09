@@ -1,6 +1,6 @@
 import { BaseVisitor } from "./baseVisitor";
 import * as ts from "typescript";
-import { isPropertyInvokingDeclaration } from "./helper";
+import { isPropertyInvokingDeclaration, isConstructorDeclaration } from "./helper";
 
 let awaited: Map<ts.Node, boolean> = new Map()
 
@@ -20,6 +20,7 @@ export class CallExpressionVisitor implements BaseVisitor<ts.CallExpression> {
             return expression
         }
         if (isPropertyInvokingDeclaration(expression)) { return expression }
+        if (isConstructorDeclaration(expression)) { return expression }
         if (awaited.get(expression) === true) { return expression }
         awaited.set(expression, true)
         return ts.createAwait(expression)

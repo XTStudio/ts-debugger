@@ -27,6 +27,9 @@ class CallExpressionVisitor {
         if (helper_1.isPropertyInvokingDeclaration(expression)) {
             return expression;
         }
+        if (helper_1.isConstructorDeclaration(expression)) {
+            return expression;
+        }
         if (awaited.get(expression) === true) {
             return expression;
         }

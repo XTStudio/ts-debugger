@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SimpleProject</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/gh/xtstudio/framework-web@0/build/dist.min.js"></script>
+    <script src="./index.js"></script>
+    <script>
+        Debugger.shared.setBreakpoint('examples/index.ts', 26)
+        Debugger.shared.on("breakpoint", function (file, line, column) {
+            console.log("breakpoint", file, line, column)
+            // setTimeout(() => {
+            //     Debugger.shared.resume()
+            // }, 2000)
+        })
+        main.attachToElement(document.body)
+    </script>
+</body>
+
+</html>

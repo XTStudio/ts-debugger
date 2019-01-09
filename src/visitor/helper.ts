@@ -15,3 +15,14 @@ export const isPropertyInvokingDeclaration = (node: ts.Node): boolean => {
     }
     return false
 }
+
+export const isConstructorDeclaration = (node: ts.Node): boolean => {
+    let current: ts.Node | undefined = node
+    while (current !== undefined && current !== null) {
+        if (ts.isConstructorDeclaration(current)) {
+            return true
+        }
+        current = current.parent
+    }
+    return false
+}

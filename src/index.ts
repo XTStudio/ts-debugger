@@ -1,5 +1,5 @@
 import * as ts from "typescript";
-import { Debugger } from "./debugger/debugger";
+import { Debugger as MDebugger } from "./debugger/debugger";
 import { SourceFileVisitor } from "./visitor/sourceFileVisitor";
 import { BaseVisitor } from "./visitor/baseVisitor";
 import { DebuggerStepVisitor } from "./visitor/debuggerStepVisitor";
@@ -35,4 +35,4 @@ export const createTransformer = function () {
     }
 }
 
-export const __debugger: Debugger = Debugger.shared
+export const Debugger: MDebugger = MDebugger.shared

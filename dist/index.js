@@ -40,4 +40,4 @@ exports.createTransformer = function () {
         return (sourceFile) => ts.visitNode(sourceFile, visitor(ctx, sourceFile));
     };
 };
-exports.__debugger = debugger_1.Debugger.shared;
+exports.Debugger = debugger_1.Debugger.shared;

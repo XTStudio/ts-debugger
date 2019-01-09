@@ -23,3 +23,13 @@ exports.isPropertyInvokingDeclaration = (node) => {
     }
     return false;
 };
+exports.isConstructorDeclaration = (node) => {
+    let current = node;
+    while (current !== undefined && current !== null) {
+        if (ts.isConstructorDeclaration(current)) {
+            return true;
+        }
+        current = current.parent;
+    }
+    return false;
+};

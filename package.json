@@ -12,6 +12,7 @@
     "typescript": "^3.2.2"
   },
   "devDependencies": {
-    "@types/node": "^10.12.18"
+    "@types/node": "^10.12.18",
+    "xt-studio": "git+https://github.com/XTStudio/xt.git"
   }
 }
